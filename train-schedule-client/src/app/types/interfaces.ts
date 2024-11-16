@@ -6,3 +6,6 @@ export interface Train {
   date: string;
 }
 
+export interface ButtonProps {
+  onClick: () => void;
+}

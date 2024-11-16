@@ -4,7 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import { useEffect, useState } from 'react';
 import { Train } from './types/interfaces';
-import { TrainCard } from './components/TrainCard';
+import TrainCard from './components/TrainCard';
 
 export default function Home() {
   const [trains, setTrains] = useState<Train[]>([]);

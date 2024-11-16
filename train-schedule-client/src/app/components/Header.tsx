@@ -1,8 +1,7 @@
-// app/components/Header.tsx
 const Header = () => {
   return (
     <header className='bg-gray-800 text-white p-4 w-full'>
-      <h1 className='text-xl'>My App</h1>
+      <h1 className='text-xl'>Train Scheduler</h1>
     </header>
   );
 };

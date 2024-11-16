@@ -7,23 +7,29 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Train } from '../types/interfaces';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
-export const TrainCard = ({ trainInfo }: { trainInfo: Train }) => {
+const TrainCard = ({ trainInfo }: { trainInfo: Train }) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>
-          ID #{trainInfo.id} - {trainInfo.name}
-        </CardTitle>
+        <CardTitle>{trainInfo.name}</CardTitle>
         <CardDescription>Date: {trainInfo.date}</CardDescription>
       </CardHeader>
       <CardContent>
         <p>From: {trainInfo.fromDestination}</p>
+        <p>To: {trainInfo.toDestination}</p>
       </CardContent>
       <CardFooter>
-        <p>To: {trainInfo.toDestination}</p>
+        <Link href={`/train/${trainInfo.id}`}>
+          <Button className='mt-2 text-blue-600' variant='outline'>
+            View Details
+          </Button>
+        </Link>
       </CardFooter>
     </Card>
   );
 };
 
+export default TrainCard;
