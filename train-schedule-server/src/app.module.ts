@@ -5,6 +5,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DataSource } from 'typeorm';
 import TypeOrmConfigService from './typeorm.config';
+import { UserController } from './controllers/user.controller';
+import { User } from './entities/user.entity';
+import { UserService } from './services/user.service';
+import { Train } from './entities/train.entity';
+import { TrainController } from './controllers/train.controller';
+import { TrainService } from './services/train.service';
 
 @Dependencies(DataSource)
 @Module({
@@ -16,8 +22,9 @@ import TypeOrmConfigService from './typeorm.config';
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
     }),
+    TypeOrmModule.forFeature([User, Train]),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, UserController, TrainController],
+  providers: [AppService, UserService, TrainService],
 })
 export class AppModule {}

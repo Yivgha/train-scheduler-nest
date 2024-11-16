@@ -17,6 +17,15 @@ import { User } from 'src/entities/user.entity';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @Get()
+  async getUsers(): Promise<User[]> {
+    const users = await this.userService.getUsers();
+    if (!users) {
+      throw new NotFoundException(`Users not found`);
+    }
+    return users;
+  }
+
   @Post()
   async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.userService.createUser(createUserDto);

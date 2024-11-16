@@ -4,8 +4,8 @@ import {
   Post,
   Body,
   Param,
-  Put,
   Delete,
+  Patch,
 } from '@nestjs/common';
 import { TrainService } from 'src/services/train.service';
 import { CreateTrainDto, UpdateTrainDto } from 'src/dto/train.dto';
@@ -29,9 +29,9 @@ export class TrainController {
     return this.trainService.create(createTrainDto);
   }
 
-  @Put(':id')
+  @Patch(':id')
   update(@Param('id') id: number, @Body() updateTrainDto: UpdateTrainDto) {
-    return this.trainService.update(id, updateTrainDto);
+    return this.trainService.update(Number(id), updateTrainDto);
   }
 
   @Delete(':id')

@@ -12,7 +12,11 @@ export class TrainService {
   ) {}
 
   async findAll(): Promise<Train[]> {
-    return await this.trainRepository.find();
+    const trains = await this.trainRepository.find();
+    if (!trains) {
+      throw new NotFoundException('Trains not found');
+    }
+    return trains;
   }
 
   async findOne(id: number): Promise<Train> {
@@ -32,6 +36,7 @@ export class TrainService {
   }
 
   async update(id: number, updateTrainDto: UpdateTrainDto): Promise<Train> {
+    console.log('Updating train with ID:', id);
     const train = await this.trainRepository.preload({
       id,
       ...updateTrainDto,
