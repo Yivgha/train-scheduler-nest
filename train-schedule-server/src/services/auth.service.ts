@@ -56,6 +56,12 @@ export class AuthService {
       throw new UnauthorizedException('Invalid password');
     }
 
+    if (user.role !== 'admin') {
+      throw new UnauthorizedException(
+        'Only admin can have access to this page',
+      );
+    }
+
     const payload = { id: user.id, email: user.email, role: user.role };
     const token = this.jwtService.sign(payload, {
       secret: process.env.JWT_SECRET,
