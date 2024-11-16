@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export class User {
+export class Train {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -9,11 +9,11 @@ export class User {
   name: string;
 
   @Column()
-  email: string;
+  fromDestination: string;
 
   @Column()
-  password: string;
+  toDestination: string;
 
-  @Column({ default: 'user' })
-  role: string;
+  @Column('timestamp')
+  date: string;
 }

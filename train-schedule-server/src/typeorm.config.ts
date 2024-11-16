@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { DataSourceOptions } from 'typeorm';
 import { TypeOrmOptionsFactory } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
+import { Train } from './entities/train.entity';
 
 dotenv.config();
 
@@ -19,7 +20,7 @@ class TypeOrmConfigService implements TypeOrmOptionsFactory {
       username: String(this.configService.get<string>('DB_USERNAME')),
       password: String(this.configService.get<string>('DB_PASSWORD')),
       database: String(this.configService.get<string>('DB_NAME')),
-      entities: [User],
+      entities: [User, Train],
       migrations: [__dirname + '/migrations/*{.ts,.js}'],
       synchronize: false,
       logging: true,
