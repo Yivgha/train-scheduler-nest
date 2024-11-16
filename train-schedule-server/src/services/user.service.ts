@@ -28,6 +28,14 @@ export class UserService {
     return user;
   }
 
+  async findByEmail(email: string): Promise<User> {
+    const user = await this.userRepository.findOne({ where: { email } });
+    if (!user) {
+      throw new NotFoundException(`User with email ${email} not found`);
+    }
+    return user;
+  }
+
   async createUser(createUserDto: CreateUserDto): Promise<User> {
     const hashedPassword = await hashPassword(createUserDto.password, 10);
     const newUser = this.userRepository.create({
@@ -53,10 +61,13 @@ export class UserService {
     await this.userRepository.remove(user);
   }
 
-  async validateUser(email: string, password: string): Promise<User | null> {
+  async validateUser(email: string, password: string) {
     const user = await this.userRepository.findOne({ where: { email } });
-    if (user && (await comparePasswords(password, user.password))) {
-      return user;
+    if (user) {
+      const passwordIsValid = await comparePasswords(password, user.password);
+      if (passwordIsValid) {
+        return user;
+      }
     }
     return null;
   }

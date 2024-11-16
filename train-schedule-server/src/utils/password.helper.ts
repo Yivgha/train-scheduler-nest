@@ -11,5 +11,9 @@ export async function comparePasswords(
   plainPassword: string,
   hashedPassword: string,
 ): Promise<boolean> {
-  return await bcrypt.compare(plainPassword, hashedPassword);
+  if (!plainPassword || !hashedPassword) {
+    throw new Error('Both password and hashed password are required');
+  }
+
+  return bcrypt.compare(plainPassword, hashedPassword);
 }

@@ -1,3 +1,4 @@
+import * as dotenv from 'dotenv';
 import { Dependencies, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -11,6 +12,11 @@ import { UserService } from './services/user.service';
 import { Train } from './entities/train.entity';
 import { TrainController } from './controllers/train.controller';
 import { TrainService } from './services/train.service';
+import { AuthService } from './services/auth.service';
+import { AuthController } from './controllers/auth.controller';
+import { JwtModule } from '@nestjs/jwt';
+
+dotenv.config();
 
 @Dependencies(DataSource)
 @Module({
@@ -19,12 +25,16 @@ import { TrainService } from './services/train.service';
       isGlobal: true,
       envFilePath: '.env',
     }),
+    JwtModule.register({
+      secret: process.env.JWT_SECRET || 'defaultSecret',
+      signOptions: { expiresIn: '1h' },
+    }),
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
     }),
     TypeOrmModule.forFeature([User, Train]),
   ],
-  controllers: [AppController, UserController, TrainController],
-  providers: [AppService, UserService, TrainService],
+  controllers: [AppController, UserController, TrainController, AuthController],
+  providers: [AppService, UserService, TrainService, AuthService],
 })
 export class AppModule {}
