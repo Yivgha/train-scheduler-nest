@@ -27,7 +27,7 @@ dotenv.config();
     }),
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'defaultSecret',
-      signOptions: { expiresIn: '1h' },
+      signOptions: { expiresIn: '24h' },
     }),
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,

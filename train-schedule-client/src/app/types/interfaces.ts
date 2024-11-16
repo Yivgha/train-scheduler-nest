@@ -9,3 +9,7 @@ export interface Train {
 export interface ButtonProps {
   onClick: () => void;
 }
+
+export interface SearchBarProps {
+  onSearch: (query: string) => void;
+}

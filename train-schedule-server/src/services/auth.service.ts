@@ -12,8 +12,6 @@ export class AuthService {
   ) {}
 
   async loginUser(loginDto: LoginDto) {
-    console.log('user login dto', loginDto);
-
     if (!loginDto.password || !loginDto.email) {
       throw new UnauthorizedException('Missing email or password');
     }
@@ -27,7 +25,7 @@ export class AuthService {
       const payload = { id: user.id, email: user.email, role: user.role };
       const token = this.jwtService.sign(payload, {
         secret: process.env.JWT_SECRET,
-        expiresIn: '1h',
+        expiresIn: '24h',
       });
 
       return token;
@@ -65,7 +63,7 @@ export class AuthService {
     const payload = { id: user.id, email: user.email, role: user.role };
     const token = this.jwtService.sign(payload, {
       secret: process.env.JWT_SECRET,
-      expiresIn: '1h',
+      expiresIn: '24h',
     });
 
     return token;
