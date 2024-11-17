@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { LoginFormProps } from '../types/interfaces';
-import FormUserInput from './FormUserInput';
+import FormInput from './FormInput';
 
 const LoginForm = ({ onSubmit, error }: LoginFormProps) => {
   const [email, setEmail] = useState('');
@@ -16,21 +16,21 @@ const LoginForm = ({ onSubmit, error }: LoginFormProps) => {
 
   return (
     <form onSubmit={handleSubmit} className='space-y-4'>
-      <FormUserInput
+      <FormInput
         label='Email'
         type='email'
         inputId='email'
+        name='email'
         inputValue={email}
-        setValue={setEmail}
         onChange={(e) => setEmail(e.target.value)}
       />
 
-      <FormUserInput
+      <FormInput
         label='Password'
         type='password'
+        name='password'
         inputId='password'
         inputValue={password}
-        setValue={setPassword}
         onChange={(e) => setPassword(e.target.value)}
       />
 

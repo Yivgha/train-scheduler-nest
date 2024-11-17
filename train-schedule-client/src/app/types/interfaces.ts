@@ -37,11 +37,11 @@ export interface EditUserFormProps {
   error: string;
 }
 
-export interface FormUserInputProps {
+export interface FormInputProps {
   label: string;
   inputId: string;
   inputValue: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  name: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type?: string;
 }

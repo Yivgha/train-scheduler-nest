@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { CreateUserFormProps } from '../types/interfaces';
-import FormUserInput from './FormUserInput';
+import FormInput from './FormInput';
 
 const CreateUserForm = ({ onSubmit, error }: CreateUserFormProps) => {
   const [name, setName] = useState('');
@@ -17,26 +17,26 @@ const CreateUserForm = ({ onSubmit, error }: CreateUserFormProps) => {
 
   return (
     <form onSubmit={handleSubmit} className='space-y-4'>
-      <FormUserInput
+      <FormInput
         label='Name'
         inputId='name'
+        name='name'
         inputValue={name}
-        setValue={setName}
         onChange={(e) => setName(e.target.value)}
       />
-      <FormUserInput
+      <FormInput
         label='Email'
         inputId='email'
+        name='email'
         inputValue={email}
-        setValue={setEmail}
         onChange={(e) => setEmail(e.target.value)}
         type='email'
       />
-      <FormUserInput
+      <FormInput
         label='Password'
         inputId='password'
+        name='password'
         inputValue={password}
-        setValue={setPassword}
         onChange={(e) => setPassword(e.target.value)}
         type='password'
       />

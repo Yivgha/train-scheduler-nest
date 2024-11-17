@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { User } from '@/app/types/interfaces';
 import { Button } from '@/components/ui/button';
 import { EditUserFormProps } from '@/app/types/interfaces';
-import FormUserInput from './FormUserInput';
+import FormInput from './FormInput';
 
 const EditUserForm = ({ onSubmit, error }: EditUserFormProps) => {
   const { id } = useParams();
@@ -44,34 +44,34 @@ const EditUserForm = ({ onSubmit, error }: EditUserFormProps) => {
         Edit {user?.name} Profile
       </h1>
       <form onSubmit={handleSubmit} className='mt-4 space-y-4'>
-        <FormUserInput
+        <FormInput
           label='Name'
           inputId='name'
           inputValue={name}
-          setValue={setName}
+          name='name'
           onChange={(e) => setName(e.target.value)}
         />
-        <FormUserInput
+        <FormInput
           label='Email'
           inputId='email'
           type='email'
+          name='email'
           inputValue={email}
-          setValue={setEmail}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <FormUserInput
+        <FormInput
           label='Password'
           inputId='password'
           type='password'
+          name='password'
           inputValue={password}
-          setValue={setPassword}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <FormUserInput
+        <FormInput
           label='Role'
           inputId='role'
+          name='role'
           inputValue={role}
-          setValue={setRole}
           onChange={(e) => setRole(e.target.value)}
         />
 
