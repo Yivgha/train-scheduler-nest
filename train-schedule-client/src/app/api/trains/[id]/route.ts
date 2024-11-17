@@ -1,13 +1,12 @@
 import { NextResponse } from 'next/server';
+import { BACKEND_URL } from '@/constants/constants';
 
 export async function GET(req: Request) {
   try {
     const url = new URL(req.url);
     const trainID = url.pathname.split('/').pop();
 
-    console.log('train id', trainID);
-
-    const response = await fetch(`http://localhost:3001/trains/${trainID}`);
+    const response = await fetch(`${BACKEND_URL}/trains/${trainID}`);
 
     if (!response.ok) {
       return NextResponse.json(
@@ -17,8 +16,6 @@ export async function GET(req: Request) {
     }
 
     const train = await response.json();
-
-    console.log('train info', train);
 
     return NextResponse.json(train);
   } catch (error) {
@@ -33,7 +30,7 @@ export async function PATCH(req: Request) {
     const trainID = url.pathname.split('/').pop();
     const updatedTrain = await req.json();
 
-    const response = await fetch(`http://localhost:3001/trains/${trainID}`, {
+    const response = await fetch(`${BACKEND_URL}/trains/${trainID}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedTrain),
@@ -62,7 +59,7 @@ export async function DELETE(req: Request) {
     const url = new URL(req.url);
     const trainID = url.pathname.split('/').pop();
 
-    const response = await fetch(`http://localhost:3001/trains/${trainID}`, {
+    const response = await fetch(`${BACKEND_URL}/trains/${trainID}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
     });

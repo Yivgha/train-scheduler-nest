@@ -16,7 +16,9 @@ export class TrainService {
     if (!trains) {
       throw new NotFoundException('Trains not found');
     }
-    return trains.sort((a, b) => a.id - b.id);
+    return trains.sort((a, b) => {
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
+    });
   }
 
   async findOne(id: number): Promise<Train> {
@@ -36,7 +38,6 @@ export class TrainService {
   }
 
   async update(id: number, updateTrainDto: UpdateTrainDto): Promise<Train> {
-    console.log('Updating train with ID:', id);
     const train = await this.trainRepository.preload({
       id,
       ...updateTrainDto,

@@ -15,7 +15,9 @@ export default function Home() {
     const fetchTrains = async () => {
       try {
         const res = await fetch('/api/trains');
+
         const data = await res.json();
+
         setTrains(data);
         setFilteredTrains(data);
       } catch (error) {

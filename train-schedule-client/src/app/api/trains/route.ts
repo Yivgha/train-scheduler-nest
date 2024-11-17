@@ -1,9 +1,10 @@
 import { CreateTrainProps } from '@/app/types/interfaces';
 import { NextResponse } from 'next/server';
+import { BACKEND_URL } from '@/constants/constants';
 
 export async function GET() {
   try {
-    const response = await fetch('http://localhost:3001/trains');
+    const response = await fetch(`${BACKEND_URL}/trains`);
     if (!response.ok) {
       console.error(`Error: ${response.statusText}`);
       return NextResponse.json(
@@ -25,7 +26,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const trainData: CreateTrainProps = await request.json();
-    const response = await fetch('http://localhost:3001/trains', {
+    const response = await fetch(`${BACKEND_URL}/trains`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
