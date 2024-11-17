@@ -35,5 +35,5 @@
 
 [![Admin](./assets/admin.jpg)](./assets/admin.jpg)
 
-> **Note:** By default, all new users have role 'user'. If you want to test admin feaures, change manually role to 'admin'.
+> **Note:** By default, all new users have the role 'user'. If you want to test admin features, change manually the role to 'admin'.
 
