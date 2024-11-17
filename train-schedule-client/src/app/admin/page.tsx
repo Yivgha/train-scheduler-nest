@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import FormInput from '../components/FormInput';
 import { DateTimePicker } from '../components/DateTimePicker';
 import { Label } from '@/components/ui/label';
+import AlertPrompt from '../components/AlertPrompt';
 
 export default function AdminPage() {
   const [user, setUser] = useState<User | null>(null);
@@ -20,6 +21,13 @@ export default function AdminPage() {
     date: '',
   });
   const [showForm, setShowForm] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [trainId, setTrainId] = useState<string | null>(null);
+  const [showIdPrompt, setShowIdPrompt] = useState(false);
+  const [trainIdInput, setTrainIdInput] = useState('');
+  const [showDeletePrompt, setShowDeletePrompt] = useState(false);
+  const [deleteTrainId, setDeleteTrainId] = useState('');
+
   const router = useRouter();
 
   useEffect(() => {
@@ -29,6 +37,15 @@ export default function AdminPage() {
     }
     setLoading(false);
   }, []);
+
+  useEffect(() => {
+    if (trainId && editing) {
+      fetch(`/api/trains/${trainId}`)
+        .then((response) => response.json())
+        .then((data) => setTrainData(data))
+        .catch((error) => console.error('Error fetching train data:', error));
+    }
+  }, [trainId, editing]);
 
   if (loading) return <Loader />;
 
@@ -54,9 +71,12 @@ export default function AdminPage() {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const method = editing ? 'PATCH' : 'POST';
+    const url = editing ? `/api/trains/${trainId}` : '/api/trains';
+
     try {
-      const response = await fetch('/api/trains', {
-        method: 'POST',
+      const response = await fetch(url, {
+        method,
         headers: {
           'Content-Type': 'application/json',
         },
@@ -75,9 +95,65 @@ export default function AdminPage() {
           date: '',
         });
         setShowForm(false);
+        setEditing(false);
+        setTrainId(null);
       }
     } catch (error) {
       console.error('Error:', error);
+    }
+  };
+
+  const handleEditClick = () => {
+    setShowIdPrompt(true);
+  };
+
+  const handleIdSubmit = async () => {
+    if (!trainIdInput.trim() || isNaN(Number(trainIdInput))) {
+      alert('Please enter a valid numeric Train ID.');
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/trains/${trainIdInput.trim()}`);
+
+      if (!response.ok) {
+        alert('Train not found. Please enter a valid Train ID.');
+        return;
+      }
+
+      setTrainId(trainIdInput.trim());
+      setShowIdPrompt(false);
+      setEditing(true);
+      setShowForm(true);
+    } catch (error) {
+      console.log(error);
+      alert(
+        'An error occurred while fetching the train. Please try again later.'
+      );
+    }
+  };
+
+  const handleDeleteSubmit = async () => {
+    if (deleteTrainId.trim()) {
+      try {
+        const response = await fetch(`/api/trains/${deleteTrainId}`, {
+          method: 'DELETE',
+        });
+
+        if (!response.ok) {
+          alert(`Failed to delete train with ID ${deleteTrainId}`);
+        } else {
+          const result = await response.json();
+          alert(result.message);
+        }
+      } catch (error) {
+        console.error('Error deleting train:', error);
+        alert('Error deleting the train.');
+      }
+      setShowDeletePrompt(false);
+      setDeleteTrainId('');
+    } else {
+      alert('Please enter a valid Train ID.');
     }
   };
 
@@ -99,12 +175,38 @@ export default function AdminPage() {
           </Button>
         </li>
         <li className='flex justify-center'>
-          <Button>Edit train card</Button>
+          <Button onClick={handleEditClick}>Edit train card</Button>
         </li>
         <li className='flex justify-center'>
-          <Button>Delete train card</Button>
+          <Button onClick={() => setShowDeletePrompt(true)}>
+            Delete train card
+          </Button>
         </li>
       </ul>
+
+      {/* Train ID input prompt */}
+      {showIdPrompt && (
+        <AlertPrompt
+          title='Enter Train ID to Edit:'
+          inputValue={trainIdInput}
+          onInputChange={(e) => setTrainIdInput(e.target.value)}
+          onSubmit={handleIdSubmit}
+          onCancel={() => setShowIdPrompt(false)}
+          placeholder='Enter Train ID'
+        />
+      )}
+
+      {/* Delete Train ID input prompt */}
+      {showDeletePrompt && (
+        <AlertPrompt
+          title='Enter Train ID to Delete:'
+          inputValue={deleteTrainId}
+          onInputChange={(e) => setDeleteTrainId(e.target.value)}
+          onSubmit={handleDeleteSubmit}
+          onCancel={() => setShowDeletePrompt(false)}
+          placeholder='Enter Train ID'
+        />
+      )}
 
       {showForm === true && (
         <form onSubmit={handleFormSubmit} className='mt-6 space-y-4'>
@@ -140,7 +242,7 @@ export default function AdminPage() {
             </div>
           </div>
 
-          <Button type='submit'>Submit</Button>
+          <Button type='submit'>{editing ? 'Update' : 'Submit'}</Button>
         </form>
       )}
     </div>

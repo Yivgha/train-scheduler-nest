@@ -9,13 +9,14 @@ import {
 import { Train } from '../types/interfaces';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import formatDate from '../utils/formatDate';
 
 const TrainCard = ({ trainInfo }: { trainInfo: Train }) => {
   return (
     <Card>
       <CardHeader>
         <CardTitle>{trainInfo.name}</CardTitle>
-        <CardDescription>Date: {trainInfo.date}</CardDescription>
+        <CardDescription>Date: {formatDate(trainInfo.date)}</CardDescription>
       </CardHeader>
       <CardContent>
         <p>From: {trainInfo.fromDestination}</p>
@@ -33,3 +34,4 @@ const TrainCard = ({ trainInfo }: { trainInfo: Train }) => {
 };
 
 export default TrainCard;
+

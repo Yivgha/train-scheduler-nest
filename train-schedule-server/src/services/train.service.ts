@@ -16,7 +16,7 @@ export class TrainService {
     if (!trains) {
       throw new NotFoundException('Trains not found');
     }
-    return trains;
+    return trains.sort((a, b) => a.id - b.id);
   }
 
   async findOne(id: number): Promise<Train> {
@@ -49,8 +49,9 @@ export class TrainService {
     return await this.trainRepository.save(train);
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id: number): Promise<{ message: string }> {
     const train = await this.findOne(id);
     await this.trainRepository.remove(train);
+    return { message: `Train with ID ${id} deleted successfully` };
   }
 }

@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 const Header = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
+  const [userRole, setUserRole] = useState<string | null>(null);
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
@@ -13,6 +14,7 @@ const Header = () => {
     if (token && userData) {
       setIsAuthenticated(true);
       setUserId(JSON.parse(userData).id);
+      setUserRole(JSON.parse(userData).role);
     }
   }, []);
 
@@ -21,6 +23,7 @@ const Header = () => {
     localStorage.removeItem('userId');
     setIsAuthenticated(false);
     setUserId(null);
+    setUserRole(null);
   };
 
   return (
@@ -31,6 +34,12 @@ const Header = () => {
       <nav className='flex flex-row items-center justify-between gap-2'>
         {isAuthenticated ? (
           <>
+            {userRole && userRole === 'admin' ? (
+              <Link href={`/admin`}>
+                <Button>Admin</Button>
+              </Link>
+            ) : null}
+
             <Link href={`/user/${userId}`}>
               <Button>Profile</Button>
             </Link>

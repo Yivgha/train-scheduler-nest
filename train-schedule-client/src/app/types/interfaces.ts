@@ -63,3 +63,11 @@ export interface DateTimePickerProps {
   onChange?: (date: Date | undefined) => void;
 }
 
+export interface AlertPromptProps {
+  title: string;
+  inputValue: string;
+  onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: () => void;
+  onCancel: () => void;
+  placeholder: string;
+}
