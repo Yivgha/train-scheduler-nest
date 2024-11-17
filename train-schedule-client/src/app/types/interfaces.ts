@@ -6,6 +6,13 @@ export interface Train {
   date: string;
 }
 
+export interface CreateTrainProps {
+  name: string;
+  fromDestination: string;
+  toDestination: string;
+  date: string;
+}
+
 export interface User {
   id: number;
   name: string;
@@ -49,5 +56,10 @@ export interface FormInputProps {
 export interface LoginFormProps {
   onSubmit: (email: string, password: string) => void;
   error: string;
+}
+
+export interface DateTimePickerProps {
+  value?: Date;
+  onChange?: (date: Date | undefined) => void;
 }
 

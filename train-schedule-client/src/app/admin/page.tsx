@@ -7,8 +7,8 @@ import Loader from '../components/Loader';
 import GoBackButton from '../components/GoBackButton';
 import { Button } from '@/components/ui/button';
 import FormInput from '../components/FormInput';
-// import { DatePicker } from '../components/DatePicker';
-// import { Label } from '@/components/ui/label';
+import { DateTimePicker } from '../components/DateTimePicker';
+import { Label } from '@/components/ui/label';
 
 export default function AdminPage() {
   const [user, setUser] = useState<User | null>(null);
@@ -45,9 +45,40 @@ export default function AdminPage() {
     });
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleDateChange = (selectedDate: Date | undefined) => {
+    setTrainData((prev) => ({
+      ...prev,
+      date: selectedDate ? selectedDate.toISOString() : '',
+    }));
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Train Data:', trainData);
+    try {
+      const response = await fetch('/api/trains', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(trainData),
+      });
+
+      if (!response.ok) {
+        console.error('Error submitting train data');
+        alert('Failed to submit train data.');
+      } else {
+        alert('Train data submitted successfully!');
+        setTrainData({
+          name: '',
+          fromDestination: '',
+          toDestination: '',
+          date: '',
+        });
+        setShowForm(false);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
@@ -98,6 +129,16 @@ export default function AdminPage() {
             inputValue={trainData.toDestination}
             onChange={handleInputChange}
           />
+
+          <div className='flex items-center gap-4'>
+            <div className='flex flex-col w-1/2'>
+              <Label htmlFor='date'>Date and Time</Label>
+              <DateTimePicker
+                value={trainData.date ? new Date(trainData.date) : undefined}
+                onChange={handleDateChange}
+              />
+            </div>
+          </div>
 
           <Button type='submit'>Submit</Button>
         </form>
