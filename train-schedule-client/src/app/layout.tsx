@@ -7,6 +7,7 @@ const geistSans = localFont({
   variable: '--font-geist-sans',
   weight: '100 900',
 });
+
 const geistMono = localFont({
   src: './fonts/GeistMonoVF.woff',
   variable: '--font-geist-mono',
@@ -27,11 +28,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <head>
-        <link
-          rel='icon'
-          href='../../public/images/train.svg'
-          type='image/x-icon'
-        />
+        <link rel='icon' href='/images/train.svg' type='image/x-icon' />
       </head>
 
       <body

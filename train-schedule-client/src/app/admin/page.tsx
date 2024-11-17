@@ -126,7 +126,7 @@ export default function AdminPage() {
       setEditing(true);
       setShowForm(true);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       alert(
         'An error occurred while fetching the train. Please try again later.'
       );

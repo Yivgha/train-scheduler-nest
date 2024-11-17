@@ -18,9 +18,11 @@ export default function UserProfile() {
       try {
         const res = await fetch(`/api/user/${id}`);
         const data = await res.json();
+
         setUser(data);
       } catch (error) {
         console.error('Error fetching user details:', error);
+
         setError('Failed to fetch user details');
       }
     };
@@ -46,7 +48,10 @@ export default function UserProfile() {
       if (!res.ok) {
         throw new Error('Failed to update user details');
       }
-      console.log('success', name, email, password, role);
+
+      const updatedUser = { ...user, role };
+      localStorage.setItem('userData', JSON.stringify(updatedUser));
+
       window.location.reload();
     } catch (error) {
       console.error('Error submitting user details:', error);

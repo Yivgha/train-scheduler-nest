@@ -4,13 +4,14 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import LoginForm from '../components/LoginForm';
+import { BACKEND_URL } from '@/constants/constants';
 
 const Login = () => {
   const [error, setError] = useState('');
   const router = useRouter();
 
   const handleLogin = async (email: string, password: string) => {
-    const response = await fetch('http://localhost:3001/auth/user-login', {
+    const response = await fetch(`${BACKEND_URL}/auth/user-login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

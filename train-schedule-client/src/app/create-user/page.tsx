@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import CreateUserForm from '../components/CreateUserForm';
 import Link from 'next/link';
+import { BACKEND_URL } from '@/constants/constants';
 
 const CreateUser = () => {
   const [error, setError] = useState('');
@@ -14,7 +15,7 @@ const CreateUser = () => {
     email: string,
     password: string
   ) => {
-    const response = await fetch('http://localhost:3001/users', {
+    const response = await fetch(`${BACKEND_URL}/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -17,7 +17,7 @@ export class AuthController {
       const user = await this.userService.findByEmail(loginDto.email);
       return res.status(HttpStatus.OK).json({ token, user });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return res
         .status(HttpStatus.UNAUTHORIZED)
         .json({ message: 'Invalid login credentials' });
@@ -30,7 +30,7 @@ export class AuthController {
       const token = await this.authService.loginAdmin(loginDto);
       return res.status(HttpStatus.OK).json({ token });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return res
         .status(HttpStatus.UNAUTHORIZED)
         .json({ message: 'Invalid login credentials or unauthorized access' });

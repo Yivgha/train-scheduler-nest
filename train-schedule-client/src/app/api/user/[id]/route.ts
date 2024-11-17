@@ -1,13 +1,12 @@
 import { NextResponse } from 'next/server';
+import { BACKEND_URL } from '@/constants/constants';
 
 export async function GET(req: Request) {
   try {
     const url = new URL(req.url);
     const userID = url.pathname.split('/').pop();
 
-    console.log('user id', userID);
-
-    const response = await fetch(`http://localhost:3001/users/${userID}`);
+    const response = await fetch(`${BACKEND_URL}/users/${userID}`);
 
     if (!response.ok) {
       return NextResponse.json(
@@ -17,8 +16,6 @@ export async function GET(req: Request) {
     }
 
     const user = await response.json();
-
-    console.log('user info', user);
 
     return NextResponse.json(user);
   } catch (error) {
@@ -36,7 +33,7 @@ export async function PUT(req: Request) {
     const userID = url.pathname.split('/').pop();
     const updatedUser = await req.json();
 
-    const response = await fetch(`http://localhost:3001/users/${userID}`, {
+    const response = await fetch(`${BACKEND_URL}/users/${userID}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedUser),

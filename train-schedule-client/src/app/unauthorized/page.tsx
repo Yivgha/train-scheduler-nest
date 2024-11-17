@@ -2,9 +2,12 @@
 
 import GoBackButton from '../components/GoBackButton';
 import { useRouter } from 'next/navigation';
+
 export default function UnauthorizedPage() {
   const router = useRouter();
+
   const goBack = () => router.push('/');
+
   return (
     <div className='px-20 py-8 flex flex-col items-start'>
       <GoBackButton onClick={() => goBack()} />

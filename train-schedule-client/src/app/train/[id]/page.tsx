@@ -18,6 +18,7 @@ export default function TrainDetail() {
       try {
         const res = await fetch(`/api/trains/${id}`);
         const data = await res.json();
+
         setTrain(data);
       } catch (error) {
         console.error('Error fetching train details:', error);
