@@ -30,7 +30,7 @@ export default function TrainDetail() {
   if (!train) return <Loader />;
 
   return (
-    <div className='container w-full h-full py-8 px-6 bg-white rounded-lg shadow-lg flex flex-col gap-2'>
+    <div className=' w-full h-full py-8 px-6 bg-white rounded-lg shadow-lg flex flex-col gap-2'>
       <GoBackButton onClick={() => router.back()} />
 
       <div className='mt-6'>
