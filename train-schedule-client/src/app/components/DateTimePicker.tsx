@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { format } from 'date-fns';
+import { uk } from 'date-fns/locale';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -68,7 +69,7 @@ export function DateTimePicker({ value, onChange }: DateTimePickerProps) {
           )}
         >
           {date ? (
-            format(date, 'MM/dd/yyyy hh:mm aa')
+            format(date, 'Pp', { locale: uk })
           ) : (
             <span>MM/DD/YYYY hh:mm aa</span>
           )}
