@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import CreateUserForm from '../components/CreateUserForm';
+import Link from 'next/link';
 
 const CreateUser = () => {
   const [error, setError] = useState('');
@@ -34,6 +35,11 @@ const CreateUser = () => {
       <div className='w-full max-w-3xl bg-white p-8 rounded-lg shadow-lg'>
         <h2 className='text-2xl font-bold text-center mb-4'>Create Account</h2>
         <CreateUserForm onSubmit={handleUserCreation} error={error} />
+        <Link href='login'>
+          <p className='mt-2 text-center text-sky-700'>
+            Already have an account? Login!
+          </p>
+        </Link>
       </div>
     </div>
   );
