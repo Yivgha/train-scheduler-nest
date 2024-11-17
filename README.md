@@ -8,7 +8,7 @@
 
 ---
 
-✨ This is very simple web application, which allows you to see available tains. ✨
+✨ This is very simple web application, which allows you to see available trains. ✨
 
 [![Main](./assets/main.jpg)](./assets/main.jpg)
 
@@ -34,3 +34,4 @@
 [![Train](./assets/train.jpg)](./assets/train.jpg)
 
 [![Admin](./assets/admin.jpg)](./assets/admin.jpg)
+
