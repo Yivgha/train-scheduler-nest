@@ -7,6 +7,8 @@ import { Train } from './types/interfaces';
 import TrainCard from './components/TrainCard';
 import SearchBar from './components/Searchbar';
 
+export const revalidate = 60 * 60 * 2;
+
 export default function Home() {
   const [trains, setTrains] = useState<Train[]>([]);
   const [filteredTrains, setFilteredTrains] = useState<Train[]>([]);
