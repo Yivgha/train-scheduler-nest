@@ -11,8 +11,6 @@ import { DateTimePicker } from '../components/DateTimePicker';
 import { Label } from '@/components/ui/label';
 import AlertPrompt from '../components/AlertPrompt';
 
-export const revalidate = 60 * 60 * 2;
-
 export default function AdminPage() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
